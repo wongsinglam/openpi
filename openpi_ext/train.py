@@ -8,7 +8,7 @@ import tyro
 
 from openpi.training.config import TrainConfig
 import openpi.training.config as core_config
-from openpi_ext.configs import get_configs
+from openpi_ext.training.configs import get_configs
 
 
 def _load_base_train_module() -> types.ModuleType:
@@ -52,4 +52,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

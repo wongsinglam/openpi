@@ -1,0 +1,2 @@
+"""Extension training package."""
+

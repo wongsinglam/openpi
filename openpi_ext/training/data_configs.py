@@ -78,7 +78,7 @@ class LeRobotAgibotDataConfig(DataConfigFactory):
 class LeRobotFrankaDataConfig(DataConfigFactory):
     @override
     def create(self, assets_dirs: pathlib.Path, model_config: _model.BaseModelConfig) -> DataConfig:
-         # Repack transforms to standardize field names from LeRobot dataset
+        # Repack transforms to standardize field names from LeRobot dataset
         repack_transform = _transforms.Group(
             inputs=[
                 _transforms.RepackTransform(

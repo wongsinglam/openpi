@@ -10,7 +10,7 @@ from openpi.training.config import FakeDataConfig
 from openpi.training.config import TrainConfig
 from openpi.training import weight_loaders
 
-from openpi_ext.data_configs import *
+from openpi_ext.training.data_configs import *
 
 
 EXT_DEBUG_CONFIG = TrainConfig(
@@ -716,5 +716,4 @@ def get_configs() -> list[TrainConfig]:
         DOBOT_TIDY_DESK_FULL_CONFIG,
         *_EXT_CONFIGS,
     ]
-
 
