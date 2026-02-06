@@ -1,7 +1,9 @@
 """Extension training entrypoint without modifying core OpenPI config registry."""
 
+import argparse
 import importlib.util
 import pathlib
+import sys
 import types
 
 import tyro
@@ -9,6 +11,7 @@ import tyro
 from openpi.training.config import TrainConfig
 import openpi.training.config as core_config
 from openpi_ext.training.configs import get_configs
+from openpi_ext.training import data_loader_ext
 
 
 def _load_base_train_module() -> types.ModuleType:
@@ -45,8 +48,20 @@ def cli() -> TrainConfig:
     return tyro.extras.overridable_config_cli({k: (k, v) for k, v in configs.items()})
 
 
+def _parse_args(argv: list[str]) -> tuple[bool, list[str]]:
+    parser = argparse.ArgumentParser(add_help=False)
+    parser.add_argument("--use-ext-loader", action="store_true")
+    args, rest = parser.parse_known_args(argv)
+    return args.use_ext_loader, rest
+
+
 def main() -> None:
     train_module = _load_base_train_module()
+    use_ext_loader, rest = _parse_args(sys.argv[1:])
+    if use_ext_loader:
+        # Swap in extension data loader without touching core code.
+        train_module._data_loader = data_loader_ext
+    sys.argv[1:] = rest
     train_module.main(cli())
 
 
