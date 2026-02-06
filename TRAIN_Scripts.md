@@ -2,18 +2,10 @@
 /data/dmt/Experiment_data/openpi/openpi-assets/checkpoints/pi05_base/params
 
 ## Dataset Addr
-/data/dmt/dobot-xtrainer
+- /data/dmt/dobot-xtrainer
+- /data/wsl/vla/dobot_xtrainer
 
-## wsl_finetune
-```
-OPENPI_DATA_HOME=/data/wsl/vla/openpi \
-HF_LEROBOT_HOME=/data/wsl/vla/dobot_xtrainer \
-CUDA_VISIBLE_DEVICES=2 XLA_PYTHON_CLIENT_MEM_FRACTION=0.9 \
-uv run scripts/train.py pi05_dobot_tidy_desk_full --exp_name=finetune_test --fsdp_devices 1 --batch_size 16 \
---checkpoint_base_dir /data/wsl/vla/openpi/Experiment_data/pi05_test --overwrite
-```
-
-## codex version
+## openpi_ext finetune script
 ```
 OPENPI_DATA_HOME=/data/wsl/vla/openpi \
 HF_LEROBOT_HOME=/data/wsl/vla/dobot_xtrainer \
