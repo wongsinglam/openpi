@@ -15,7 +15,10 @@ from openpi_ext.training import data_loader_ext
 
 
 def _load_base_train_module() -> types.ModuleType:
-    """Load `scripts/train.py` as a Python module."""
+    """Load a train.py as a Python module.
+
+    Prefer the modified train entrypoint from `openpi copy` if present.
+    """
     try:
         from scripts import train as train_module
 
@@ -23,7 +26,12 @@ def _load_base_train_module() -> types.ModuleType:
     except Exception:
         pass
 
-    train_path = pathlib.Path(__file__).resolve().parents[1] / "scripts" / "train.py"
+    project_root = pathlib.Path(__file__).resolve().parents[1]
+    copy_root = project_root.parent / "openpi copy"
+    train_path = copy_root / "scripts" / "train.py"
+    if not train_path.exists():
+        train_path = project_root / "scripts" / "train.py"
+
     spec = importlib.util.spec_from_file_location("openpi_scripts_train", train_path)
     if spec is None or spec.loader is None:
         raise RuntimeError(f"Unable to load train module from {train_path}")

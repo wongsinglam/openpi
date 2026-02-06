@@ -7,9 +7,19 @@
 ## wsl_finetune
 ```
 OPENPI_DATA_HOME=/data/wsl/vla/openpi \
-HF_LEROBOT_HOME=/data/wsl/dobot-xtrainer \
+HF_LEROBOT_HOME=/data/wsl/vla/dobot_xtrainer \
 CUDA_VISIBLE_DEVICES=2 XLA_PYTHON_CLIENT_MEM_FRACTION=0.9 \
-uv run scripts/train.py pi05_libero --exp_name=finetune_test --fsdp_devices 1 --batch_size 16 \
+uv run scripts/train.py pi05_dobot_tidy_desk_full --exp_name=finetune_test --fsdp_devices 1 --batch_size 16 \
+--checkpoint_base_dir /data/wsl/vla/openpi/Experiment_data/pi05_test --overwrite
+```
+
+## codex version
+```
+OPENPI_DATA_HOME=/data/wsl/vla/openpi \
+HF_LEROBOT_HOME=/data/wsl/vla/dobot_xtrainer \
+CUDA_VISIBLE_DEVICES=2 XLA_PYTHON_CLIENT_MEM_FRACTION=0.9 \
+uv run -m openpi_ext.train --use-ext-loader \
+pi05_dobot_tidy_desk_full --exp_name=finetune_test --fsdp_devices 1 --batch_size 16 \
 --checkpoint_base_dir /data/wsl/vla/openpi/Experiment_data/pi05_test --overwrite
 ```
 
